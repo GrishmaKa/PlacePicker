@@ -2,10 +2,10 @@ import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 function Modal({ open, children, onClose }) {
-  const dialog = useRef(null);
+  const dialog = useRef();
 
   useEffect(() => {
-    if (dialog.current && open) {
+    if (open) {
       dialog.current.showModal();
     } else {
       dialog.current.close();
@@ -14,11 +14,10 @@ function Modal({ open, children, onClose }) {
 
   return createPortal(
     <dialog className="modal" ref={dialog} onClose={onClose}>
-      {children}
+      {open ? children : null}
     </dialog>,
-    document.getElementById('modal-root') || document.body
+    document.getElementById('modal')
   );
 }
 
 export default Modal;
-//323-593-7679 ENT montebello
